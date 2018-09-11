@@ -70,6 +70,15 @@ class Arvore:
             return True
 
 
+    def _moveCima(self,x):
+        for linha in range(0,len(x)):
+            for coluna in range(0,len(x)):
+                if x[linha][coluna] is not None & linha > 0 & x[linha-1][coluna] is None:
+                 x[linha-1][coluna] = x[linha][coluna]
+                 x[linha][coluna] = None
+                 return x
+
+
 
 
 
@@ -81,8 +90,9 @@ T.inserir(6)
 T.inserir(12)
 T.inserir(8)
 T.inserir(1)
-T.preOrder()
-z = 1242
+p = T.preOrder()
+
+
 
 inicio =  [
           [1,2,3],
@@ -96,8 +106,5 @@ fim =     [
           [7,8,0]
                  ]
 
-
-
-print(len(z))
 
 
