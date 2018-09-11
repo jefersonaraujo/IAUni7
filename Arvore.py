@@ -46,30 +46,28 @@ class Arvore:
 
 
     def buscaProfundidade(self,estadoFim, estadoInicio):
-        self.estadoFinal = self._atalho(estadoFim)
         abertos =[]
-        estadoInicio = self._atalho(estadoInicio)
+        abertos.append(estadoInicio)
         fechados =[]
 
-        abertos.append(estadoInicio)
         while abertos is not None:
-            x = abertos.pop(0)
-            if self.estadoFinal == x:
+            noComparado = abertos.pop(0)
+            if self._compare(noComparado, self.estadoFinal):
                 return True
 
 
 
 
-
-
-    def _atalho(self,x):
-        multiplicador =0
-        soma =0
-        for linha in range(0,len(x)):
-            for coluna in range(0,len(x)):
-                soma += multiplicador * (x[linha][coluna])
-                multiplicador+=1
-        return soma
+    def _compare(self,noComparado,sucesso):
+        compara =[]
+        for linha in range(0,len(noComparado)):
+            for coluna in range(0,len(noComparado)):
+                if noComparado[linha][coluna] != sucesso[linha][coluna]:
+                    return False
+                else:
+                   compara.append(True)
+        if len(compara) == 9:
+            return True
 
 
 
@@ -100,6 +98,6 @@ fim =     [
 
 
 
-print(T.buscaProfundidade(inicio,fim))
+print(len(z))
 
 
