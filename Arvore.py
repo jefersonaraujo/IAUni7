@@ -46,8 +46,8 @@ class Arvore:
 
 
     def buscaProfundidade(self,estadoFim, estadoInicio):
-        abertos =[]
-        abertos.append(estadoInicio)
+        estadoInicio.append(self.idNo,None)
+        abertos = estadoInicio
         fechados =[]
 
         while abertos is not None:
@@ -78,6 +78,29 @@ class Arvore:
                  x[linha][coluna] = None
                  return x
 
+    def _moveDireita(self,x):
+        for linha in range(0,len(x)):
+            for coluna in range(0,len(x)):
+                if x[linha][coluna] is not None & coluna < 2 & x[linha][coluna+1] is None:
+                 x[linha][coluna+1] = x[linha][coluna]
+                 x[linha][coluna] = None
+                 return x
+
+    def _moveBaixo(self,x):
+        for linha in range(0,len(x)):
+            for coluna in range(0,len(x)):
+                if x[linha][coluna] is not None & linha < 2 & x[linha+1][coluna] is None:
+                 x[linha+1][coluna] = x[linha][coluna]
+                 x[linha][coluna] = None
+                 return x
+
+    def _moveEsquerda(self,x):
+        for linha in range(0,len(x)):
+            for coluna in range(0,len(x)):
+                if x[linha][coluna] is not None & coluna > 0 & x[linha][coluna-1] is None:
+                 x[linha][coluna-1] = x[linha][coluna]
+                 x[linha][coluna] = None
+                 return x
 
 
 
@@ -97,7 +120,7 @@ p = T.preOrder()
 inicio =  [
           [1,2,3],
           [4,5,6],
-          [7,8,0]
+          [7,8,0],
                  ]
 
 fim =     [
@@ -105,6 +128,10 @@ fim =     [
           [3,5,6],
           [7,8,0]
                  ]
+
+inicio.append((2,5))
+z = inicio
+print(z)
 
 
 
