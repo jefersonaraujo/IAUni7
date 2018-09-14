@@ -46,14 +46,37 @@ class Arvore:
 
 
     def buscaProfundidade(self,estadoFim, estadoInicio):
-        estadoInicio.append(self.idNo,None)
         abertos = estadoInicio
         fechados =[]
-
+        self.raiz = Node(self.idNo,estadoInicio,None)
+        self.idNo +=1
         while abertos is not None:
+            filhos =[]
             noComparado = abertos.pop(0)
             if self._compare(noComparado, self.estadoFinal):
                 return True
+            else:
+                filhoCima       = self._moveCima(noComparado)
+                filhoDireita    = self._moveDireita(noComparado)
+                filhoBaixo      = self._moveBaixo(noComparado)
+                filhoEsquerda   = self._moveEsquerda(noComparado)
+
+                fechados.insert(0, noComparado)
+
+                if self._comparaFilhos(filhoEsquerda, fechados) is False & self._comparaFilhos(filhoEsquerda,abertos) is False:
+                    abertos.insert(0,filhoEsquerda)
+                elif self._comparaFilhos(filhoBaixo, fechados) is False & self._comparaFilhos(filhoBaixo,abertos) is False:
+                    abertos.insert(0, filhoBaixo)
+                elif self._comparaFilhos(filhoDireita,fechados) is False & self._comparaFilhos(filhoDireita,abertos) is False:
+                    abertos.insert(0, filhoDireita)
+                elif self._comparaFilhos(filhoCima,fechados) is False & self._comparaFilhos(filhoCima,abertos) is False:
+                    abertos.insert(0, filhoCima)
+                else:
+                    return False
+
+
+
+
 
 
 
@@ -70,6 +93,28 @@ class Arvore:
             return True
 
 
+    def _comparaFilhos(self,filho,fechados):
+            vetor_comparacao = []
+
+            for filhoFechado in fechados:
+                vetorIgualFilho =[]
+                for linha in range(0,len(filho)):
+                    for coluna in range(0,len(filho)):
+                        if filhoFechado[linha][coluna] == filho[linha][coluna]:
+                            vetorIgualFilho.append(True)
+                        if len(vetorIgualFilho) > 8:
+                            return True
+                        else:
+                            vetor_comparacao.append(True)
+
+            if len(vetor_comparacao) == len(fechados):
+                return True
+            else:
+                return False
+
+
+
+
     def _moveCima(self,x):
         for linha in range(0,len(x)):
             for coluna in range(0,len(x)):
@@ -77,6 +122,7 @@ class Arvore:
                  x[linha-1][coluna] = x[linha][coluna]
                  x[linha][coluna] = None
                  return x
+
 
     def _moveDireita(self,x):
         for linha in range(0,len(x)):
@@ -103,6 +149,7 @@ class Arvore:
                  return x
 
 
+    #def insereFilhosArvore(self,arvore,node):
 
 
 T = Arvore()
@@ -129,9 +176,12 @@ fim =     [
           [7,8,0]
                  ]
 
+p =5
 inicio.append((2,5))
 z = inicio
-print(z)
+
+
+print(len(fim))
 
 
 
