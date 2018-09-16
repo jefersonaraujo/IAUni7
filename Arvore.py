@@ -302,38 +302,5 @@ class Arvore:
 
 
 
-inicioProfundidade =  [
 
-          [1,2,3],
-          [4,0,8],
-          [7,6,5],
-                 ]
-
-fimProfundidade =     [
-
-          [1,2,3],
-          [4,5,6],
-          [7,8,0]
-                 ]
-
-
-inicioAmplitude =  [
-
-          [1,2,3],
-          [4,0,5],
-          [6,7,8],
-                 ]
-
-fimAmplitude = [
-
-          [2,7,3],
-          [1,0,5],
-          [4,6,8]
-                 ]
-
-
-tree = Arvore()
-print(tree.buscaAmplitude(fimAmplitude,inicioAmplitude))
-print('\n\n\n---------------------------------------------------------')
-print(tree.buscaAmplitude(fimAmplitude,inicioAmplitude))
 
