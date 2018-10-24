@@ -64,23 +64,23 @@ class ArvoreInducao:
             valores_propriedade = self.coluna_propriedade(deepcopy( CE ), propriedade_atual)
             self.arvore_inducao.append((self.id_no,self.id_pai,propriedade_atual))
             id_pr = self.id_no
-            id_pai_pr =self.id_pai
             self.id_pai = self.id_no
             self.id_no += 1
             ramo_valor = []
             for propriedade in valores_propriedade:
                 #ramo_valor.append([(self.id_no,self.id_pai,propriedade)])
                 self.arvore_inducao.append((self.id_no,id_pr,propriedade))
-                self.id_pai = id_pai_pr+2
+                self.id_pai = self.id_no
                 self.id_no += 1
-                print(propriedade)
                 ce_propriedade = []
                 ce_propriedade = self.busca_particao(CE,propriedade)
                 classe =self.induzir_arvore(deepcopy(ce_propriedade),deepcopy(PR))
                 if classe != None:
                     self.id_no += 1
                     self.arvore_inducao.append(classe)
-                print(self.arvore_inducao)
+
+    def result(self):
+        print(self.arvore_inducao)
 
 
 CE =[]
@@ -107,6 +107,7 @@ for atributo in CE[0][2:]:
 
 inducao = ArvoreInducao()
 inducao.induzir_arvore(CE,PR)
+inducao.result()
 
 
 
