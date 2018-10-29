@@ -1,5 +1,5 @@
 from copy import deepcopy
-
+import math
 
 class ArvoreInducao:
 
@@ -17,6 +17,9 @@ class ArvoreInducao:
     def selecao_propriedade(self,PR):
         return PR.pop(0)
 
+
+    def selecao_formula(self):
+        return self
 
     def busca_particao(self,CE,propriedade):
         nova_particao =[]
