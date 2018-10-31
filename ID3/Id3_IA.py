@@ -1,25 +1,14 @@
 from copy import deepcopy
-import math
+
 
 class ArvoreInducao:
-
-
-
-
     arvore_inducao = []
     id_no= 1
     id_pai= 0
 
-
-
-
-
     def selecao_propriedade(self,PR):
         return PR.pop(0)
 
-
-    def selecao_formula(self):
-        return self
 
     def busca_particao(self,CE,propriedade):
         nova_particao =[]
@@ -55,13 +44,24 @@ class ArvoreInducao:
 
 
 
+
     def induzir_arvore(self,CE,PR):
         if len(self.coluna_propriedade_classe(CE)) == 1:
             classe =[]
             classe.append((self.id_no,self.id_pai,CE[1][1]))
             return classe
         elif not PR:
-            return 'FALTA IMPLEMENTAR'
+            classe = []
+            valoresClasse = self.coluna_propriedade_classe(CE)
+            classes = ""
+            for indice in range(0,len(valoresClasse)):
+                classes += valoresClasse.pop()
+                if len(valoresClasse)== 0:
+                   break
+                else:
+                    classes += " ou "
+            classe.append((self.id_no,self.id_pai,classes))
+            return classe
         else:
             propriedade_atual = self.selecao_propriedade(PR)
             valores_propriedade = self.coluna_propriedade(deepcopy( CE ), propriedade_atual)
@@ -71,7 +71,6 @@ class ArvoreInducao:
             self.id_no += 1
             ramo_valor = []
             for propriedade in valores_propriedade:
-                #ramo_valor.append([(self.id_no,self.id_pai,propriedade)])
                 self.arvore_inducao.append((self.id_no,id_pr,propriedade))
                 self.id_pai = self.id_no
                 self.id_no += 1
@@ -84,6 +83,14 @@ class ArvoreInducao:
 
     def result(self):
         print(self.arvore_inducao)
+
+    def existe(self,registro):
+        classificacao = "Não existe classificação para esse registro"
+        for conjunto in CE:
+            if registro == conjunto[2:]:
+                classificacao = "Classificacao: "+conjunto[1]
+        print(classificacao)
+
 
 
 CE =[]
@@ -104,15 +111,17 @@ CE.append((12, 'MODERADO',  'BOA',                      'ALTA',     'NENHUMA',  
 CE.append((13, 'BAIXO',     'BOA',                      'ALTA',     'NENHUMA',      'ACIMA 35MIL'))
 CE.append((14, 'ALTO',      'RUIM',                     'ALTA',     'NENHUMA',      '15 A 35MIL'))
 
+
+
 PR = []
 for atributo in CE[0][2:]:
     PR.append(atributo)
 
+
 inducao = ArvoreInducao()
 inducao.induzir_arvore(CE,PR)
 inducao.result()
-
-
+#inducao.existe(("RUIM",'ALTA','NENHUMA','0 A 15MIL'))
 
 
 
